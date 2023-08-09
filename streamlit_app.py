@@ -1,5 +1,7 @@
 import streamlit
 from urllib.error import URLError
+import pandas 
+import snowflake.connector
 
 streamlit.title('My Parents New Healthy Dinner')
 
@@ -11,7 +13,6 @@ streamlit.text('🥑🍞 Avocado Toast')
 
 streamlit.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
 
-import pandas 
 my_fruit_list = pandas.read_csv('https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt')
 my_fruit_list = my_fruit_list.set_index('Fruit')
 streamlit.dataframe(my_fruit_list)
@@ -32,13 +33,12 @@ try:
         fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
         streamlit.dataframe(fruityvice_normalized)
 except Exception as e:
-    streamlit.error()
+    streamlit.write(f"An error occurred when adding the fruit: {e}")
     
 streamlit.write('The user entered fruit choice', fruit_choice)
 
 streamlit.stop()
 
-import snowflake.connector
 
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
