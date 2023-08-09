@@ -42,7 +42,15 @@ if streamlit.button('Add Fruit to List'):
         insert_query = "INSERT INTO PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST (column_name) VALUES (%s)"  # Replace 'column_name' with the appropriate column name
         my_cur.execute(insert_query, (fruit_name,))
         my_cnx.commit()  # Commit the transaction to save changes
-        st.success('Fruit added successfully!')
+        streamlit.success('Fruit added successfully!')
     except Exception as e:
-        st.write(f"An error occurred when adding the fruit: {e}")
+        streamlit.write(f"An error occurred when adding the fruit: {e}")
+
+try:
+    my_cur.execute("SELECT * from PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST")
+    my_data_rows = my_cur.fetchall()
+    streamlit.text("The fruit load list contains:")
+    streamlit.dataframe(my_data_rows)
+except Exception as e:
+    streamlit.write(f"An error occurred: {e}")
 
