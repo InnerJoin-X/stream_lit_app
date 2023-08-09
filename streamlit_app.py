@@ -50,7 +50,7 @@ except Exception as e:
     
 streamlit.write('The user entered fruit choice', fruit_choice)
 
-streamlit.stop()
+# streamlit.stop()
 
 
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
