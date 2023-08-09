@@ -45,8 +45,8 @@ try:
         streamlit.dataframe(back_from_function)
 
 
-# except Exception as e:
-#     streamlit.write(f"An error occurred when adding the fruit: {e}")
+except Exception as e:
+    streamlit.write(f"An error occurred when adding the fruit: {e}")
     
 streamlit.write('The user entered fruit choice', fruit_choice)
 
